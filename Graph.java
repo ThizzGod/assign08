@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.LinkedList;
+import java.util.Queue;
 
 
 /**
@@ -115,10 +117,32 @@ public class Graph {
 	 */
 	public int CalculateShortestPath()
 	{
-		// TODO: Fill in this method
-		return 0;
-	}
+		Queue<Node> q = new LinkedList<Graph.Node>();
+		q.offer(start);
+		Node curr = null;
 
+		
+		while (!q.isEmpty()) {
+			curr = q.poll();
+			if (curr.isGoal) {
+				return calculatePathLength(curr);
+			}
+			Node[] neighbors = new Node[4];
+			neighbors[0] = nodes[curr.row][curr.col - 1 ];
+			neighbors[1] = nodes[curr.row][curr.col + 1 ];
+			neighbors[2] = nodes[curr.row - 1][curr.col];
+			neighbors[3] = nodes[curr.row + 1][curr.col];
+			
+			for (Node next : neighbors) {
+				if (!next.isWall && !next.visited) {
+					next.visited = true;
+					next.cameFrom = curr;
+					q.offer(next);
+				}
+			}
+		}
+		throw new IllegalStateException();
+	}
 	
 	/**
 	 * Traverse the graph with DFS (any path to any goal)
@@ -157,7 +181,7 @@ public class Graph {
 
 	public int calculatePathLength(Node current) {
 		
-		if (current.cameFrom == null) {
+		if (current.cameFrom == start) {
 			return 0;
 		}
 		if (!current.isGoal) {
