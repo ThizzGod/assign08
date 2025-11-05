@@ -128,10 +128,35 @@ public class Graph {
 	 */
 	public int CalculateAPath()
 	{
-		// TODO: Fill in this method
-		return 0;		
+		return dfs(start);		
+	}
+	
+	public int dfs(Node node) {
+		node.visited = true;
+		if (node.isGoal) {
+			return calculatePathLength(node);
+		} 
+		Node[] neighbors = new Node[4];
+		neighbors[0] = nodes[node.row][node.col - 1 ];
+		neighbors[1] = nodes[node.row][node.col + 1 ];
+		neighbors[2] = nodes[node.row - 1][node.col];
+		neighbors[3] = nodes[node.row + 1][node.col];
+
+		for (Node next : neighbors ) {
+			if (!next.visited && !next.isWall) {
+				next.cameFrom = node;
+				dfs(next);
+			} 
+		}
 	}
 
+	public int calculatePathLength(Node current) {
+		
+		if (current.cameFrom == null) {
+			return 0;
+		}
+		return 1 + calculatePathLength(current.cameFrom);
+	}
 	
 	/**
 	 * @author Daniel Kopta
@@ -149,6 +174,14 @@ public class Graph {
 		private boolean isOnPath;
 		private boolean isWall;
 		
+		private Node cameFrom;
+		private boolean visited;
+		
+		Node nextLeft;
+		Node nextRight;
+		Node nextTop;
+		Node nextBottom;
+		
 		// TODO: You will undoubtedly want to add more members and functionality to this class.
 				
 		public Node(int r, int c)
@@ -158,6 +191,12 @@ public class Graph {
 			isOnPath = false;
 			row = r;
 			col = c;
+			cameFrom = null;
+			visited = false;
+			nextLeft = null;
+			nextRight = null;
+			nextTop = null;
+			nextBottom = null;
 		}
 		
 		@Override
