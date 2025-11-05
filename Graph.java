@@ -145,15 +145,23 @@ public class Graph {
 		for (Node next : neighbors ) {
 			if (!next.visited && !next.isWall) {
 				next.cameFrom = node;
-				dfs(next);
+				int pathLength = dfs(next);
+				if (pathLength > 0) {
+					return pathLength;
+				}
 			} 
+			
 		}
+		return -1;
 	}
 
 	public int calculatePathLength(Node current) {
 		
 		if (current.cameFrom == null) {
 			return 0;
+		}
+		if (!current.isGoal) {
+			current.isOnPath = true;
 		}
 		return 1 + calculatePathLength(current.cameFrom);
 	}
