@@ -11,7 +11,8 @@ import java.util.Queue;
 
 /**
  * 
- * @author Daniel Kopta
+ * @author Daniel Kopta & Max Barker & Josi Gac
+ * @version 11/5/25
  * This Graph class acts as a starting point for your maze path finder.
  * Add to this class as needed.
  */
@@ -155,6 +156,11 @@ public class Graph {
 		return dfs(start);		
 	}
 	
+	/**
+	 * Performs a depth first search
+	 * @param node the node for the dfs step
+	 * @return the length of the path from the start node to the goal node
+	 */
 	public int dfs(Node node) {
 		node.visited = true;
 		if (node.isGoal) {
@@ -179,6 +185,11 @@ public class Graph {
 		return -1;
 	}
 
+	/**
+	 * Recursively calculates the length of a path
+	 * @param current node to calculate the path length for
+	 * @return the length from the start node up to the current node
+	 */
 	public int calculatePathLength(Node current) {
 		
 		if (current.cameFrom == start) {
@@ -191,7 +202,8 @@ public class Graph {
 	}
 	
 	/**
-	 * @author Daniel Kopta
+	 * @author Daniel Kopta & Max Barker & Josi Gac
+ 	 * @version 11/5/25
 	 * 	A node class to assist in the implementation of the graph.
 	 * 	You will need to add additional functionality to this class.
 	 */
@@ -209,11 +221,6 @@ public class Graph {
 		private Node cameFrom;
 		private boolean visited;
 		
-		Node nextLeft;
-		Node nextRight;
-		Node nextTop;
-		Node nextBottom;
-		
 		// TODO: You will undoubtedly want to add more members and functionality to this class.
 				
 		public Node(int r, int c)
@@ -225,10 +232,6 @@ public class Graph {
 			col = c;
 			cameFrom = null;
 			visited = false;
-			nextLeft = null;
-			nextRight = null;
-			nextTop = null;
-			nextBottom = null;
 		}
 		
 		@Override
