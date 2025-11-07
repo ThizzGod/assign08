@@ -188,7 +188,8 @@ public class Graph {
 	}
 
 	/**
-	 * Recursively calculates the length of a path
+	 * Calculate the path length and switched the isOnPath variable to true for nodes which
+	 * are on the path
 	 * @param current node to calculate the path length for
 	 * @return the length from the start node up to the current node
 	 */
