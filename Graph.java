@@ -141,7 +141,7 @@ public class Graph {
 				}
 			}
 		}
-		throw new IllegalStateException();
+		return -1;
 	}
 	
 	/**
@@ -180,14 +180,13 @@ public class Graph {
 	}
 
 	public int calculatePathLength(Node current) {
-		
-		if (current.cameFrom == start) {
-			return 0;
-		}
-		if (!current.isGoal) {
+		int counter = 0;
+		while (current != start) {
 			current.isOnPath = true;
+			current = current.cameFrom;
+			counter++;
 		}
-		return 1 + calculatePathLength(current.cameFrom);
+		return counter;
 	}
 	
 	/**
@@ -209,10 +208,6 @@ public class Graph {
 		private Node cameFrom;
 		private boolean visited;
 		
-		Node nextLeft;
-		Node nextRight;
-		Node nextTop;
-		Node nextBottom;
 		
 		// TODO: You will undoubtedly want to add more members and functionality to this class.
 				
@@ -225,10 +220,6 @@ public class Graph {
 			col = c;
 			cameFrom = null;
 			visited = false;
-			nextLeft = null;
-			nextRight = null;
-			nextTop = null;
-			nextBottom = null;
 		}
 		
 		@Override
